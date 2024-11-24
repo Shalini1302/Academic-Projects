@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtSoul - The Creative Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+   <div id="chatbot-button">
+    <button onclick="openChatbot()">Chat with us</button>
+</div>
+
+<div id="chatbot-modal" class="chatbot-modal">
+    <div class="chatbot-header">
+        <h4>Chatbot</h4>
+        <button onclick="closeChatbot()">×</button>
+    </div>
+    <div class="chatbot-body">
+        <div id="chatbot-responses"></div>
+        <form id="chatbot-form">
+            <input type="text" id="user-input" placeholder="Type your message..." required>
+            <button type="submit">↑</button>
+        </form>
+    </div>
+</div>
+
+    <div class="cookie-banner" id="cookieBanner">
+        <p>We use cookies to improve your experience on our site. By using our website, you agree to our <a href="#" style="color: blue;">Privacy Policy</a>.</p>
+        <div class="cookie-buttons">
+            <button id="acceptCookies" class="cookie-btn">Accept</button>
+            <button id="declineCookies" class="cookie-btn">Decline</button>
+        </div>
+    </div>
+    <div class="modal-overlay" id="loginModal">
+    <div class="login-container">
+        <span class="modal-close" id="closeLogin">&times;</span>
+        <h2>Welcome Back</h2>
+        <p class="modal-subtitle">Continue your artistic journey</p>
+        <form id="loginForm">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="email-username" name="email-username" placeholder="Email or Username" required>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            
+            <div class="remember-forgot">
+                <label style="color:black;">
+                    <input type="checkbox" name="remember"> Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit">Log In</button>
+
+            <div class="form-footer">
+                <p>New to ArtSoul? <a href="#" id="switchToSignup">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="signupModal">
+    <div class="sidebar">
+        <p>Welcome to ARTSoul</p>
+    </div>
+    <div class="signup-container">
+        <span class="modal-close" id="closeSignup">&times;</span>
+        <h2>Create Account</h2>
+        <p class="modal-subtitle">Join our creative community</p>
+        <form id="signupForm">
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <small id="emailError" class="error-message" style="display:none; color: red;">Email already exists</small>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="signup-password" name="password" placeholder="Password" required>
+                <small id="passwordHint" class="hint-message" style="color: red; display: none;">Password should be alphanumeric and at least 6 characters long</small>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-calendar"></i>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            
+            <div class="input-group">
+    <i class="fas fa-user-tag"></i>
+    <select id="profile_type" name="profile_type" required>
+        <option value="" disabled selected>Choose your Profile-Type</option>
+        <option value="artist">ARTIST</option>
+        <option value="member">MEMBER</option>
+    </select>
+</div>
+            
+            <button type="submit">Create Account</button>
+
+            <div class="form-footer">
+                <p>Already have an account? <a href="#" id="switchToLogin">Log In</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="#" class="logo">
+            <i class="fas fa-palette"></i>
+            ARTSoul
+        </a>
+        <div class="nav-links">
+            <a href="http://localhost/admin/artist_display.php"><i class="fas fa-users"></i> Artists</a>
+            <a href="http://localhost/admin/artwork_display.php"><i class="fas fa-paint-brush"></i> Artworks</a>
+            <a href="http://localhost/admin/sales.php"><i class="fas fa-tag"></i> Sales</a>
+            <a id="loginBtn"><i class="fas fa-sign-in-alt"></i> Log In</a>
+            <a id="signupBtn" class="sign-up">Sign Up</a>
+            <a id="feedbackBtn" href="http://localhost/iwp/index.html"><i class="fa fa-comments"></i>Feedback</a>
+            <a href="view_cart.php" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="hero">
+        <div class="hero-content">
+            <h1>Art Made Social.</h1>
+            <p>Connect with artists, collectors, and art enthusiasts. Discover unique pieces that speak to your soul.</p>
+        </div>
+
+        <div class="artwork-showcase">
+            <div class="artwork-track">
+            </div>
+        </div>
+    </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get modal elements
+    const loginModal = document.getElementById('loginModal');
+    const signupModal = document.getElementById('signupModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const closeLogin = document.getElementById('closeLogin');
+    const closeSignup = document.getElementById('closeSignup');
+    const switchToSignup = document.getElementById('switchToSignup');
+    const switchToLogin = document.getElementById('switchToLogin');
+
+    // Show modals
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+    }
+    
+    if (signupBtn) {
+        signupBtn.addEventListener('click', () => {
+            signupModal.style.display = 'flex';
+        });
+    }
+
+    // Close modals
+    closeLogin.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+    });
+
+    closeSignup.addEventListener('click', () => {
+        signupModal.style.display = 'none';
+    });
+
+    // Switch between modals
+    switchToSignup.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginModal.style.display = 'none';
+        signupModal.style.display = 'flex';
+    });
+
+    switchToLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        signupModal.style.display = 'none';
+        loginModal.style.display = 'flex';
+    });
+
+    // Close on outside click
+    window.addEventListener('click', (e) => {
+        if (e.target === loginModal) {
+            loginModal.style.display = 'none';
+        }
+        if (e.target === signupModal) {
+            signupModal.style.display = 'none';
+        }
+    });
+
+    // Handle form submissions
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Add your login form handling logic here
+        console.log('Login form submitted');
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Add your signup form handling logic here
+        console.log('Signup form submitted');
+    });
+});
+
+const artworks = [
+    {
+        imageUrl: 'https://i.pinimg.com/736x/21/28/b3/2128b3ef31d7bc0130503a8f1ff821cf.jpg',
+        artist: 'Alexandra Chen',
+        title: 'Summer Dreams'
+    },
+    {
+        imageUrl: 'https://i.pinimg.com/736x/d4/44/d1/d444d13f7aad82d51cdabb3438f15fa0.jpg',
+        artist: 'Marcus Rivera',
+        title: 'Urban Symphony'
+    },
+    {
+        imageUrl: 'https://i.pinimg.com/736x/f8/19/d9/f819d95b601ea9f9bf357f5b796cea7e.jpg',
+        artist: 'Sarah Johnson',
+        title: "Nature's Embrace"
+    }
+];
+
+class ArtworkShowcase {
+    constructor() {
+        this.track = document.querySelector('.artwork-track');
+        this.currentIndex = 0;
+        this.initialize();
+    }
+
+    initialize() {
+        const allArtworks = [...artworks, ...artworks]; // For seamless looping
+        allArtworks.forEach((artwork) => {
+            const artworkItem = document.createElement('div');
+            artworkItem.className = 'artwork-item';
+            artworkItem.innerHTML = `
+                <img src="${artwork.imageUrl}" alt="${artwork.title}" class="artwork-image">
+                <div class="artist-info">
+                    <div><strong>${artwork.title}</strong></div>
+                    <div>by ${artwork.artist}</div>
+                </div>
+            `;
+            this.track.appendChild(artworkItem);
+        });
+        this.startScrolling();
+    }
+
+    startScrolling() {
+        setInterval(() => {
+            this.currentIndex++;
+            const translateX = -this.currentIndex * 320; // Adjust for artwork width + margin
+            this.track.style.transform = `translateX(${translateX}px)`;
+
+            // Reset scrolling for seamless effect
+            if (this.currentIndex >= artworks.length) {
+                setTimeout(() => {
+                    this.track.style.transition = 'none';
+                    this.track.style.transform = 'translateX(0)';
+                    this.currentIndex = 0;
+                    setTimeout(() => {
+                        this.track.style.transition = 'transform 0.5s ease-in-out';
+                    }, 50);
+                }, 500);
+            }
+        }, 3000); // Scrolling interval
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    new ArtworkShowcase();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptCookies = document.getElementById('acceptCookies');
+    const declineCookies = document.getElementById('declineCookies');
+
+    // Check if the user has already made a choice
+    if (localStorage.getItem('cookieConsent')) {
+        cookieBanner.style.display = 'none';
+    }
+
+    acceptCookies.addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'accepted');
+        cookieBanner.style.display = 'none';
+        console.log('Cookies accepted.');
+    });
+
+    declineCookies.addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'declined');
+        cookieBanner.style.display = 'none';
+        console.log('Cookies declined.');
+    });
+});
+
+function openChatbot() {
+    const modal = document.getElementById('chatbot-modal');
+    modal.classList.add('open');
+    document.getElementById('user-input').focus();
+}
+
+function closeChatbot() {
+    const modal = document.getElementById('chatbot-modal');
+    modal.classList.remove('open');
+}
+
+document.getElementById('chatbot-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var userInput = document.getElementById('user-input').value;
+    
+    if (userInput.trim() === '') return;
+
+    document.getElementById('user-input').value = '';
+    appendMessage(userInput, 'user');
+
+    // Display loading message
+    appendMessage('...typing...', 'bot', true);
+
+    // Create AJAX request
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'chatbot.php', true);  // Set up the request to 'chatbot.php'
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');  // Set content type for POST data
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Replace the loading message with actual bot response
+            var botMessages = document.querySelectorAll('.bot-message');
+            if (botMessages.length > 0) {
+                botMessages[botMessages.length - 1].textContent = xhr.responseText;
+            } else {
+                appendMessage(xhr.responseText, 'bot');
+            }
+        } else {
+            console.error('Error:', xhr.status);
+            var botMessages = document.querySelectorAll('.bot-message');
+            if (botMessages.length > 0) {
+                botMessages[botMessages.length - 1].textContent = 'Sorry, something went wrong.';
+            } else {
+                appendMessage('Sorry, something went wrong.', 'bot');
+            }
+        }
+    };
+
+    xhr.onerror = function() {
+        console.error('Request failed');
+        var botMessages = document.querySelectorAll('.bot-message');
+        if (botMessages.length > 0) {
+            botMessages[botMessages.length - 1].textContent = 'Sorry, something went wrong.';
+        } else {
+            appendMessage('Sorry, something went wrong.', 'bot');
+        }
+    };
+
+    // Send user input to PHP backend
+    xhr.send('user_input=' + encodeURIComponent(userInput));
+});
+
+function appendMessage(message, sender, isLoading = false) {
+    var chatbotResponses = document.getElementById('chatbot-responses');
+    var newMessage = document.createElement('p');
+    newMessage.className = sender + '-message';
+    newMessage.textContent = message;
+
+    // If it's a loading message, add a class for styling
+    if (isLoading) {
+        newMessage.classList.add('loading');
+    }
+
+    chatbotResponses.appendChild(newMessage);
+    chatbotResponses.scrollTop = chatbotResponses.scrollHeight;
+}
+
+    $("#signupForm").on("submit", function(event) {
+    event.preventDefault();
+    
+    const submitButton = $(this).find('button[type="submit"]');
+    submitButton.prop('disabled', true);
+    
+    // Debug logging
+    console.log("Form data being sent:", $(this).serialize());
+    
+    $.ajax({
+        url: 'signup_handler.php',
+        type: 'POST',
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(response) {
+            console.log('Server response:', response);
+            
+            if (response.error) {
+                alert(response.error);
+            } else if (response.success) {
+                alert('Account created successfully!');
+                $("#signupForm")[0].reset();
+                $('#signupModal').css('display', 'none');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Ajax error:', {
+                status: status,
+                error: error,
+                response: xhr.responseText
+            });
+            alert('An error occurred. Please try again.');
+        },
+        complete: function() {
+            submitButton.prop('disabled', false);
+        }
+    });
+});
+
+ $(document).ready(function () {
+    const username = getCookie('username');
+    if (username) {
+        addUserIcon(username);
+    } else {
+        resetNavbar();
+    }
+});
+
+function addUserIcon(username) {
+    $(".user-icon").remove(); // Clear existing user icon
+    const userIcon = `
+        <div class="user-icon">
+            <i class="fas fa-user"></i> ${username}
+            <div class="dropdown">
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    `;
+    $(".nav-links").append(userIcon);
+}
+
+function resetNavbar() {
+    $(".user-icon").remove();
+    // Optionally, restore default navbar items
+}
+
+$(document).on('submit', '#loginForm', function (event) {
+    event.preventDefault();
+    const formData = $(this).serialize();
+
+    $.ajax({
+        url: 'login_handler.php',
+        type: 'POST',
+        data: formData,
+        dataType: 'json',
+        success: function (response) {
+            console.log("AJAX Success Response:", response); // Debugging log
+            if (response.success) {
+                addUserIcon(response.username);
+                alert('Login successful');
+                $("#loginModal").hide(); // Close the login modal
+            } else {
+                console.error("Login Failed:", response.error); // Detailed logging
+                alert(response.error || 'Login failed');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", xhr.status, xhr.responseText); // Detailed logging
+            alert('An error occurred during login');
+        }
+    });
+});
+
+$(document).on('click', '#logoutBtn', function (event) {
+    event.preventDefault();
+
+    $.ajax({
+        url: 'logout_handler.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            console.log("Logout Response:", response); // Debugging log
+            if (response.success) {
+                resetNavbar();
+                alert('Logout successful');
+            } else {
+                alert('Logout failed');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", xhr.status, xhr.responseText); // Detailed logging
+            alert('An error occurred during logout');
+        }
+    });
+});
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+        return parts.pop().split(';').shift();
+    }
+    return null;
+}
+
+$("#loginButton").on("click", function() {
+    $("#loginModal").show();
+});
+
+    $(document).ready(function() {
+        // Password validation
+        $("#signup-password").on("input", function() {
+            var password = $(this).val();
+            var passwordHint = $("#passwordHint");
+
+            if (/^(?=.*[a-zA-Z])(?=.*\d).{6,}$/.test(password)) {
+                passwordHint.hide();
+            } else {
+                passwordHint.show();
+            }
+        });
+
+
+        // Email existence check
+        $("#email").on("input", function() {
+            var email = $(this).val();
+            var emailError = $("#emailError");
+
+            $.ajax({
+                url: 'check_email.php',
+                method: 'POST',
+                data: { email: email },
+                success: function(response) {
+                    if (response.exists) {
+                        emailError.show();
+                    } else {
+                        emailError.hide();
+                    }
+                },
+                error: function() {
+                    emailError.text("Error checking email").show();
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

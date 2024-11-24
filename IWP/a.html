@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+   <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .sidebar {
+        width: 230px;
+        height: 100vh;
+        background-image: url('images/sidebar1.jpg'); /* Add the correct path to your image */
+        background-size: cover; /* Cover the entire sidebar */
+        background-position: center;
+        color:#fff;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 20px;
+    }
+
+    .sidebar h2 {
+        text-align: center;
+        color: white;
+        font-weight:bold;
+        font-family:cursive;
+    }
+
+    .sidebar a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-weight:bold;
+        font-family:papyrus;
+
+    }
+
+    .sidebar a:hover {
+        background-color: rgba(0, 0, 0, 0.2); /* Slight darkening effect on hover */
+    }
+
+    .main-content {
+        margin-left: 260px;
+        padding: 20px;
+    }
+
+    .main-content h2 {
+        color:blue;
+        font-family:cursive;
+    }
+
+    .section {
+        display: none;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
+
+    th {
+        background-color: violet;
+        color: blue;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #3498db;
+    }
+</style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <a href="#" onclick="showSection('dashboard')">Dashboard & Reporting</a>
+        <a href="#" onclick="showSection('artwork-management')">Artwork Management</a>
+        <a href="#" onclick="showSection('artist-management')">Artist Profile Management</a>
+        <a href="#" onclick="showSection('shopping-cart-management')">Shopping Cart Management</a>
+        <a href="#" onclick="showSection('feedback-management')">Feedback Management</a>
+        <a href="#" onclick="showSection('payment-management')">Payment Management</a>
+        <a href="#" onclick="showSection('password-management')">Password Management</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Dashboard and Reporting Section -->
+        <div id="dashboard" class="section">
+            <h2>Dashboard & Reporting</h2>
+            <p>Overview of the website’s performance:</p>
+            <table>
+                <tr>
+                    <th>Total Artists</th>
+                    <th>Total Artworks</th>
+                    <th>Total Orders</th>
+                    <th>Total Payments</th>
+                    <th>Total Feedbacks</th>
+                </tr>
+                <tr>
+                    <td>25</td>
+                    <td>120</td>
+                    <td>340</td>
+                    <td>$45,000</td>
+                    <td>55</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Artwork Management Section -->
+        <div id="artwork-management" class="section">
+            <h2>Artwork Management</h2>
+            <button class="btn">Add New Artwork</button>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Sunset</td>
+                    <td>John Doe</td>
+                    <td>$500</td>
+                    <td>
+                        <button class="btn">Edit</button>
+                        <button class="btn">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Artist Profile Management Section -->
+        <div id="artist-management" class="section">
+            <h2>Artist Profile Management</h2>
+            <button class="btn">Add New Artist</button>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>John Doe</td>
+                    <td>john@example.com</td>
+                    <td>
+                        <button class="btn">Edit</button>
+                        <button class="btn">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Shopping Cart Management Section -->
+        <div id="shopping-cart-management" class="section">
+            <h2>Shopping Cart Management</h2>
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <td>1001</td>
+                    <td>Jane Doe</td>
+                    <td>$1200</td>
+                    <td>Pending</td>
+                    <td>
+                        <button class="btn">View</button>
+                        <button class="btn">Update Status</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Feedback Management Section in Admin -->
+<div id="feedback-management" class="section">
+    <h2>Feedback Management</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Feedback</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+        <?php
+        // Fetch feedback from database
+        $conn = new mysqli('localhost', 'root', '', 'artwork');
+        $result = $conn->query("SELECT * FROM feedback");
+
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>
+                <td>".$row['id']."</td>
+                <td>".$row['name']."</td>
+                <td>".$row['description']."</td>
+                <td>".$row['date']."</td>
+                <td>
+                    <form action='delete_feedback.php' method='POST'>
+                        <input type='hidden' name='feedback_id' value='".$row['id']."'>
+                        <button class='btn' type='submit'>Delete</button>
+                    </form>
+                </td>
+            </tr>";
+        }
+        $conn->close();
+        ?>
+    </table>
+   </div>
+        <!-- Payment Management Section -->
+        <div id="payment-management" class="section">
+            <h2>Payment Management</h2>
+            <table>
+                <tr>
+                    <th>Payment ID</th>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>5001</td>
+                    <td>Jane Smith</td>
+                    <td>$1500</td>
+                    <td>2024-10-11</td>
+                    <td>Completed</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Password Management Section -->
+        <div id="password-management" class="section">
+            <h2>Password Management</h2>
+            <table>
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <td>1001</td>
+                    <td>John Doe</td>
+                    <td>john@example.com</td>
+                    <td>
+                        <button class="btn">Reset Password</button>
+                    </td>
+                </tr>
+            </table>
+
+            <h3>Admin Password Management</h3>
+            <form action="admin_reset_password.php" method="POST">
+                <label for="admin_password">Change Admin Password:</label><br>
+                <input type="password" id="admin_password" name="admin_password"><br><br>
+                <button class="btn" type="submit">Update Password</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to toggle between sections
+        function showSection(sectionId) {
+            var sections = document.getElementsByClassName('section');
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].style.display = 'none';
+            }
+            document.getElementById(sectionId).style.display = 'block';
+        }
+        
+        // Display dashboard by default
+        document.getElementById('dashboard').style.display = 'block';
+    </script>
+
+</body>
+</html>

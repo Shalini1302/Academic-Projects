@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Sidebar styling with background image */
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background-image: url('images/sidebar1.jpg'); /* Ensure the image path is correct */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Heading styling */
+        .sidebar h2 {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-family: cursive;
+            margin-bottom: 30px;
+        }
+        .h1{
+            font-family: cursive;
+            color:teal;
+           }
+
+        /* List styling */
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+            font-family:papyrus;
+        }
+
+        /* Link styling with hover effect */
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: block;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.5); /* Slightly dark background for contrast */
+            text-align: center;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #ffdf64; /* Yellow highlight on hover */
+            color: #1d1b31;
+            font-weight: bold;
+            transform: scale(1.05);/* Slight zoom effect */ 
+        }
+
+        /* Content area */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a href="dashboard.php">Dashboard & Reporting</a></li>
+            <li><a href="http://localhost/iwp/admin.php">Session tracking</a></li>
+            <li><a href="artist_management.php">Artist Profile Management</a></li>
+            <li><a href="cart_management.php">Shopping Cart Management</a></li>
+            <li><a href="payment_management.php">Payment Management</a></li>
+            <li><a href="http://localhost/iwp/ph.php">Artwork Management</a></li>
+            <li><a href="http://localhost/iwp/a.php">Feedback Management</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1>HELLO ADMIN</h1>
+    </div>
+
+</body>
+</html>
